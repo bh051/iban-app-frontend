@@ -45,7 +45,7 @@ export function IbanForm() {
                 method="post"
                 headers={{ "Content-Type": "application/json" }}
                 onSubmit={handleSubmit}
-                onSuccess={(r) => handleResponse(r.response)} // valid response
+                onSuccess={(r) => handleResponse(r.response)}
                 validateStatus={(status) => status >= 200}
                 className="mt-2 items-center">
                 <IbanInput register={register} errors={errors} />
