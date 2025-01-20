@@ -1,0 +1,26 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  tags:
+    - build
+    - deploy
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+
+deploy:
+  stage: deploy
+  tags:
+    - build
+    - deploy
+  script: 
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker stop iban-app-frontend || true
+    - docker rm iban-app-frontend || true
+    - docker image prune -a -f
+    - docker run -d --restart always -p 5000:80 --name iban-app-frontend $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    - echo "Finished deployment"
