@@ -32,9 +32,9 @@ export function IbanForm() {
 
     const getApiUrl = () => {
         if (window.location.protocol === "https:") {
-            return "https://ec2-16-171-154-193.eu-north-1.compute.amazonaws.com/api/iban/validate"
+            return "https://ec2-13-61-7-138.eu-north-1.compute.amazonaws.com/api/iban/validate"
         }
-        return "http://ec2-16-171-154-193.eu-north-1.compute.amazonaws.com/api/iban/validate"
+        return "http://ec2-13-61-7-138.eu-north-1.compute.amazonaws.com/api/iban/validate"
     }
 
     return (
